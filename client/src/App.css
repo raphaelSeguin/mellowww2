@@ -1,0 +1,176 @@
+
+body {
+  background-color: black;
+  user-select: none;
+}
+/* classes */
+.App {
+  margin: auto;
+  width: 1024px;
+  height: 640px;
+}
+.label {
+  color: black;
+  text-align: center;
+  margin-top: 10px;
+}
+.RotPot {
+  position: absolute;
+  width: 116px;
+  height: 116px;
+}
+.key {
+  position: absolute;
+  display: inline-block;
+  top: -26px;
+}
+.black {
+  width: 41px;
+  height: 164px;
+  z-index: 1;
+}
+.white {
+  width: 78px;
+  height: 306px;
+  z-index: 0;
+}
+.C,
+.F {
+  background-image: url('./img/18.png');
+}
+.D,
+.G,
+.A {
+  background-image: url('./img/20.png');
+}
+.E,
+.B {
+  background-image: url('./img/22.png');
+}
+.Csharp,
+.Dsharp,
+.Fsharp,
+.Gsharp,
+.Asharp {
+  background-image: url('./img/19.png');
+}
+
+/* elements */
+h1 {
+  font-size: 30px;
+  font-weight: 100;
+  text-align: center;
+}
+h1 span {
+  font-size: 12px;
+}
+
+/* modules */
+#controls {
+  position: absolute;
+  background-image: url('./img/CAISSEHAUTE_IMELLOTRON.png');
+  width: 1024px;
+  height: 360px;
+  top: 0;
+}
+#keyboard {
+  position: absolute;
+  background-color: grey;
+  width: 1024px;
+  height: 280px;
+  top: 360px;
+  overflow: hidden;
+  overflow-x: auto;
+}
+.first-key {
+  background-image: url('./img/18.png');
+}
+.last-key {
+  background-image: url('./img/35.png');
+}
+#menu {
+  position: absolute;
+  background-image: url('./img/TOUCHBAR2_IMELLOTRON4.png');
+  background-repeat: no-repeat;
+  width: 225px;
+  height: 208px;
+  top: 20px;
+  left: 20px;
+  padding: 20px;
+  color: white;
+  overflow: auto;
+}
+#menu p {
+  padding: 8px 8px 4px;
+  margin: 2px;
+  color: #ffffff;
+  background: #333333;
+  border-radius: 5px;
+}
+#menu p:hover {
+  background: #383838;
+  color: #fee4bd;
+}
+#menu p.active {
+  background: #4b4b4b;
+  color: #fdc46d;
+}
+#panel {
+  position: absolute;
+  background-image: url('./img/PLAQUEACIER_IMELLOTRON3.png');
+  width: 696px;
+  height: 248px;
+  top: 20px;
+  left: 305px;
+}
+#volume {
+  background-image: url('./img/PotardMel1.png');
+  top: 85px;
+  left: 83px;
+}
+#tone {
+  background-image: url('./img/PotardMel1.png');
+  top: 85px;
+  left: 287px;
+}
+#pitch {
+  background-image: url('./img/PotardMel1.png');
+  top: 85px;
+  left: 491px;
+}
+#label-volume {
+  position: absolute;
+  width: 116px;
+  top: 201px;
+  left: 83px;
+}
+#label-tone {
+  position: absolute;
+  width: 116px;
+  top: 201px;
+  left: 287px;
+}
+#label-pitch {
+  position: absolute;
+  width: 116px;
+  top: 201px;
+  left: 491px;
+}
+#slider {
+  position: absolute;
+  background-image: url('./img/BARREOCTAVER_IMELLOTRON2.png');
+  background-repeat: no-repeat;
+  width: 680px;
+  height: 5px;
+  top: 320px;
+  left: 180px;
+}
+#cursor {
+  position: absolute;
+  background-image: url('./img/OCTAVER_IMELLOTRON.png');
+  width: 36px;
+  height: 64px;
+  top: -32px;
+}
+
+

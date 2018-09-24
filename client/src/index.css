@@ -1,0 +1,9 @@
+@font-face {
+  font-family: avant-garde;
+  src: url(./fonts/ITCAvantGardeStd-Bk.otf);
+}
+body {
+  margin: 0;
+  padding: 0;
+  font-family: avant-garde;
+}
