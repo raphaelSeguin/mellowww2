@@ -11,10 +11,8 @@ class SamplePlayer {
         this.tone = settings.tone;
 
         this.ctx = context;
-        this.player = this.ctx.createBufferSource();
-        this.player.buffer = buffer;
-        this.player.playbackRate.value = Math.pow(2, this.pitch/12);
-
+        this.buffer = buffer;
+        
         this.vca = this.ctx.createGain();
         this.vca.gain.value = 0.;
 
@@ -22,13 +20,15 @@ class SamplePlayer {
         this.filter.frequency.value =  this.tone;
         this.filter.type = 'highpass';
         //
-
-        this.player.connect(this.filter);
-        this.filter.connect(this.vca);
-        this.vca.connect(this.ctx.destination);
         //
     }
     on() {
+        this.player = this.ctx.createBufferSource();
+        this.player.buffer = this.buffer;
+        this.player.playbackRate.value = Math.pow(2, this.pitch/12);
+        this.player.connect(this.filter);
+        this.filter.connect(this.vca);
+        this.vca.connect(this.ctx.destination);
         this.player.start();
         this.vca.gain.linearRampToValueAtTime(this.volume, this.ctx.currentTime + 0.05);
     }
@@ -46,9 +46,17 @@ class SamplePlayer {
     setFilter(freq) {
         this.filter.frequency.linearRampToValueAtTime(this.tone, this.ctx.currentTime + 0.05);
     }
-    enveloppe(a, d, s, r) {
+    // enveloppe(a, d, s, r) {
 
-    }
+    // }
 }
 
 export default SamplePlayer;
+
+
+// recréer le graph à chaque noteOn !!! 
+// createBufferSource 
+// buffer
+// filter
+// vca
+// destination

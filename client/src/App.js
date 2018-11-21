@@ -48,6 +48,7 @@ class App extends Component {
             //
             // JUSTE POUR VOIR  => => => utiliser this.state pour déclencher les notes 
             // à partir de componentDidUpdate (... ou pas si c'est trop lent...)
+            console.log('noteOn');
             audio.noteOn(keyNumber);
             //
             //
@@ -56,6 +57,7 @@ class App extends Component {
             releaseKey(this.state.lastKeyPressed);
             //
             //
+            console.log('noteOff');
             audio.noteOff(keyNumber);
             //
             //

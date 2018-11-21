@@ -8,7 +8,7 @@ const audio = {}
 
 audio.sourceNodes = {};
 
-audio.ctx = new window.AudioContext();
+audio.ctx = new (window.AudioContext || window.webkitAudioContext)();
 
 // registre des bufferSources actifs
 audio.keyboard = [];
@@ -24,7 +24,7 @@ audio.resume = function() {
 
 // notes
 audio.noteOn = function(note) {
-    this.keyboard[note] = new SamplePlayer(this.ctx, 
+    this.keyboard[note] = new SamplePlayer(this.ctx,
         this.sourceNodes[this.instrument][note],
         this.settings);
     this.keyboard[note].on();

@@ -3,9 +3,9 @@ import RotPot from './RotPot';
 
 const Panel = ({handler, state}) => 
     <div id="panel">
-        <h1>iMellotron 
+        <h1>Mellowsound
             <span className="">
-                by FingerLab
+                by fingerLab
             </span>
         </h1>
         
