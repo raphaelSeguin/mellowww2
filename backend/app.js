@@ -17,7 +17,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // snd
-app.use('/snd', express.static(path.join(__dirname, '../client/assets/snd')));
+app.use('/snd', express.static(path.join(__dirname, '../client/public/snd')));
 
 if (process.env.NODE_ENV === 'production') {
     // assets
