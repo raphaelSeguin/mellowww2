@@ -30,11 +30,11 @@ class SamplePlayer {
         this.filter.connect(this.vca);
         this.vca.connect(this.ctx.destination);
         this.player.start();
-        this.vca.gain.linearRampToValueAtTime(this.volume, this.ctx.currentTime + 0.05);
+        this.vca.gain.linearRampToValueAtTime(this.volume, this.ctx.currentTime + 0.005);
     }
     off() {
-        this.vca.gain.exponentialRampToValueAtTime(0.0000000000001, this.ctx.currentTime + 0.1);
-        setTimeout(this.player.stop.bind(this.player), 100);
+        this.vca.gain.linearRampToValueAtTime(0., this.ctx.currentTime + 0.05);
+        setTimeout(this.player.stop.bind(this.player), 150);
     }
     setVolume(val) {
         this.volume = val;

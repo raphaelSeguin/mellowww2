@@ -56,7 +56,6 @@ audio.setTone = function(tone) {
     this.keyboard.forEach( node => node.setFilter(frequency));
 }
 
-
 // populate sourceNodes with samples
 audio.loadSamples = function() {
     for (let instrument in samples) {
