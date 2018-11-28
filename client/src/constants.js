@@ -1,7 +1,7 @@
 export const btnMaxDist = 150;
 export const sliderWidth = 644;
 export const samples = {
-    "cello": [
+    "Cello": [
         'G2.mp3',
         'G#2.mp3',
         'A2.mp3',
@@ -38,7 +38,7 @@ export const samples = {
         'E5.mp3',
         'F5.mp3'
     ],
-    "flute": [
+    "Flute": [
         'G2.mp3',
         'G#2.mp3',
         'A2.mp3',
@@ -74,7 +74,7 @@ export const samples = {
         'D#5.mp3',
         'E5.mp3',
         'F5.mp3'],
-    "clarinet": [
+    "Clarinet": [
         'G2.mp3',
         'G#2.mp3',
         'A2.mp3',
@@ -110,7 +110,7 @@ export const samples = {
         'D#5.mp3',
         'E5.mp3',
         'F5.mp3'],
-    "oboe": [
+    "Oboe": [
         'G2.mp3',
         'G#2.mp3',
         'A2.mp3',
@@ -146,7 +146,7 @@ export const samples = {
         'D#5.mp3',
         'E5.mp3',
         'F5.mp3'],
-    "sad strings": [
+    "Sad Strings": [
         'G2.mp3',
         'G#2.mp3',
         'A2.mp3',
@@ -182,7 +182,7 @@ export const samples = {
         'D#5.mp3',
         'E5.mp3',
         'F5.mp3'],
-    "viola": [
+    "Viola": [
         'G2.mp3',
         'G#2.mp3',
         'A2.mp3',
