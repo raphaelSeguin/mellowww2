@@ -1,11 +1,5 @@
 class SamplePlayer {
     constructor(context, buffer, settings) {
-        // samplePlayer object 
-        // create a sourceNode
-        // connect to filter and gain nodes
-        // connect to destination
-        // register it in audio.keyboard
-        // methods for filter enveloppe and releases
         this.volume = settings.volume;
         this.pitch = settings.pitch;
         this.tone = settings.tone;
@@ -19,8 +13,6 @@ class SamplePlayer {
         this.filter = this.ctx.createBiquadFilter();
         this.filter.frequency.value =  this.tone;
         this.filter.type = 'highpass';
-        //
-        //
     }
     on() {
         this.player = this.ctx.createBufferSource();
@@ -46,17 +38,6 @@ class SamplePlayer {
     setFilter(freq) {
         this.filter.frequency.linearRampToValueAtTime(this.tone, this.ctx.currentTime + 0.05);
     }
-    // enveloppe(a, d, s, r) {
-
-    // }
 }
 
 export default SamplePlayer;
-
-
-// recréer le graph à chaque noteOn !!! 
-// createBufferSource 
-// buffer
-// filter
-// vca
-// destination

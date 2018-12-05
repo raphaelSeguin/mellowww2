@@ -1,9 +1,6 @@
 import React from 'react';
 
-// mettre les noires au dessus des blanches !!!
-// pourquoi pas de mouseleave ??? seulement vers le bas ?
-
-const Key = ({n, cursor, handler}) => {
+const Key = ({n, cursor, handler, pressed}) => {
     const keyMap = {
         0: {
             name: 'G',
@@ -81,7 +78,8 @@ const Key = ({n, cursor, handler}) => {
                 `key 
                 ${keyMap[number%12].color} 
                 ${keyMap[number%12].name} 
-                ${number === 0 ? 'first-key' : number === 34 ? 'last-key': ''}`
+                ${number === 0 ? 'first-key' : number === 34 ? 'last-key': ''}
+                ${pressed ? 'pressed' : ''}`
             }
             onMouseOut={handler}
         >

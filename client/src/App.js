@@ -3,6 +3,7 @@ import './App.css';
 
 import Controls from './Controls.js';
 import Keyboard from './Keyboard.js';
+import PopinLoadBar from './PopinLoadBar.js';
 
 import audioFactory from './audio.js';
 import {btnMaxDist, sliderWidth} from './constants.js';
@@ -13,14 +14,13 @@ const audio = audioFactory();
 // diff between old and new array
 const addedItems = (oldArray, newArray) => 
     newArray.reduce( (result, item, i) => 
-            oldArray.includes(item) ? result : result.concat(item), []);
+        oldArray.includes(item) ? result : result.concat(item), []);
 
 const removedItems = (oldArray, newArray) => addedItems(newArray, oldArray);
 
 const removeDoubles = array => 
     array.reduce( (result, item, i, array) => 
-        array.slice(i+1).includes(item) ? result : result.concat(item), []
-    )
+        array.slice(i+1).includes(item) ? result : result.concat(item), [])
 
 class App extends Component {
     constructor(props) {
@@ -37,7 +37,8 @@ class App extends Component {
             lastKeyPressed: null,
             selectParam: '',
             selectValue: 0,
-            selectOrigin: [null, null]
+            selectOrigin: [null, null],
+            loadingProgression: 0
         }
         // methods binding
         this.changeParam = this.changeParam.bind(this);
@@ -53,21 +54,21 @@ class App extends Component {
         console.log('key : ', keyNumber, '|| type : ', type);
         const pushKey = key =>
             this.setState( 
-                state => ({
-                    keysPressed: state.keysPressed.concat(key)
+                prevState => ({
+                    keysPressed: prevState.keysPressed.concat(key)
                 })
             )
         const releaseKey = key =>
             this.setState(
-                state => ({
-                    keysPressed: state.keysPressed.filter( n => n !== key)
+                prevState => ({
+                    keysPressed: prevState.keysPressed.filter( n => n !== key)
                 })
             )
-        // switch à la place ? 
+
         if (type === 'mousedown' || type === 'touchstart') {
             this.setState(
-                state => ({
-                    keysPressed: state.keysPressed.concat(keyNumber),
+                prevState => ({
+                    keysPressed: prevState.keysPressed.concat(keyNumber),
                     lastKeyPressed: keyNumber
                 })
             )
@@ -140,8 +141,13 @@ class App extends Component {
                 break;
         }
     }
+    scrollHandler(e) {
+        e.preventDefault();
+        console.log(e.type)
+    }
     // lifecycle
     componentDidMount() {
+        audio.subscribeLoadingProgression( val => this.setState({loadingProgression: val}) );
         audio.loadSamples();
         this.componentDidUpdate(null, this.state);
     }
@@ -160,16 +166,27 @@ class App extends Component {
                 onMouseMove={this.clickHandler}
                 onMouseUp={this.clickHandler} 
                 onMouseLeave={this.clickHandler} 
+                onMouseOver={this.clickHandler} 
+
+                onClick={this.clickHandler} 
+                onDoubleClick={this.clickHandler} 
+                onMouseOut={this.clickHandler} 
+
                 onTouchCancel={this.clickHandler} 
                 onTouchEnd={this.clickHandler} 
                 onTouchMove={this.clickHandler} 
-                onTouchStart={this.clickHandler} >
+                onTouchStart={this.clickHandler} 
+
+                onScroll={this.scrollHandler} >
+                <PopinLoadBar progress={this.state.loadingProgression} />
+                <div className="shade"></div>
                 <Controls
                     handler={this.changeParam}
                     state={this.state} />
                 <Keyboard
                     state={this.state}
                     handler={this.clickHandler}/>
+                
             </div>
         );
     }

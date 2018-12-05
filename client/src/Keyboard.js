@@ -6,7 +6,7 @@ const Keyboard = ({state, handler}) =>
         {
             [...Array(35)].map( (_, i) => {
                 return (
-                    <Key key={i} n={i} cursor={state.cursor} handler={handler} />
+                    <Key key={i} n={i} cursor={state.cursor} handler={handler} pressed={state.keysPressed.includes(i)}/>
                 )
             })
         }

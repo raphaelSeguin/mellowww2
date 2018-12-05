@@ -3,64 +3,65 @@ import SamplePlayer from './SamplePlayer.js'
 
 // helper
 const map = (val, min, max, tmin, tmax) => ((val - min) / (max - min)) * (tmax - tmin) + tmin;
-
 // 
 const audioFactory = () => {
-    //const audio = {};
+    let counter = 0;
+    const totalNumberOfSamples = 210;
     const sourceNodes = {};
     const ctx = new (window.AudioContext || window.webkitAudioContext)();
     // registre des bufferSources actifs
     const keyboard = [];
+    let instrument;
     const settings = {
         volume:0.8,
         tone: 50,
         pitch: 0.
     }
+    let loadingProgessionSubscribers = [];
     const resume = function resume() {
-        this.ctx.resume();
+        ctx.resume();
     }
-
     // notes
     const noteOn = function noteOn(note) {
-        this.keyboard[note] = new SamplePlayer(this.ctx,
-            this.sourceNodes[this.instrument][note],
-            this.settings);
-        this.keyboard[note].on();
+        keyboard[note] = new SamplePlayer(
+            ctx,
+            sourceNodes[instrument][note],
+            settings
+        );
+        keyboard[note].on();
     }
     const noteOff = function noteOff(note) {
-        if (this.keyboard[note]) {
-            this.keyboard[note].off();
+        if (keyboard[note]) {
+            keyboard[note].off();
         }
     }
-
     // preset
-    const setInstrument = function setInstrument(instrument) {
-        this.instrument = instrument;
+    const setInstrument = function setInstrument(instru) {
+        instrument = instru;
     }
-
     // audio params
     const setPitch = function setPitch(semi) {
         const pitch = map(semi, 0, 1, -2, 2);
-        this.settings.pitch = pitch;
-        this.keyboard.forEach( node => node.setPitch(pitch)  )
+        settings.pitch = pitch;
+        keyboard.forEach( node => node.setPitch(pitch)  )
     }
     const setVolume = function setVolume(volume) {
-        this.settings.volume = volume;
-        this.keyboard.forEach( node => { node.setVolume(volume)} )
+        settings.volume = volume;
+        keyboard.forEach( node => { node.setVolume(volume)} )
     }
     const setTone = function setTone(tone) {
         const frequency = map(tone, 0, 1, 50, 1000);
-        this.settings.tone = frequency;
-        this.keyboard.forEach( node => node.setFilter(frequency));
+        settings.tone = frequency;
+        keyboard.forEach( node => node.setFilter(frequency));
     }
 
     // populate sourceNodes with samples
     const loadSamples = function loadSamples() {
         for (let instrument in samples) {
-            this.sourceNodes[instrument] = [];
+            sourceNodes[instrument] = [];
             for (let i = 0; i < samples[instrument].length; i++) {
                 const url = '/snd/' + instrument + '/' + encodeURIComponent(samples[instrument][i]);
-                this.loadSample(url, instrument, i );
+                loadSample(url, instrument, i );
             }
         }
     }
@@ -70,23 +71,26 @@ const audioFactory = () => {
         request.open('GET', url, true);
         request.responseType = 'arraybuffer';
         request.onload = () => {
-            this.ctx.decodeAudioData(
+            ctx.decodeAudioData(
                 request.response,
                 decodedSample => {
                     // AudioBuffer
-                    this.sourceNodes[instrument][number] = decodedSample;
+                    sourceNodes[instrument][number] = decodedSample;
+                    counter += 1;
+                    publishLoadingProgression( counter/totalNumberOfSamples );
                 },
                 error => console.log('ERROR LOADING SAMPLE : ' + error)
             );
         }
         request.send();
     }
-
+    const publishLoadingProgression = (val) => {
+        loadingProgessionSubscribers.forEach( fn => fn(val) );
+    }
+    const subscribeLoadingProgression = (fn) => {
+        loadingProgessionSubscribers.push(fn);
+    }
     return {
-        sourceNodes,
-        ctx,
-        keyboard,
-        settings,
         resume,
         noteOn,
         noteOff,
@@ -95,7 +99,8 @@ const audioFactory = () => {
         setVolume,
         setTone,
         loadSamples,
-        loadSample
+        loadSample,
+        subscribeLoadingProgression
     }
 }
 
