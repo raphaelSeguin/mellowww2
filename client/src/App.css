@@ -2,6 +2,10 @@
 body {
   background-color: black;
   user-select: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 /* elements */
 h1 {
@@ -15,7 +19,6 @@ h1 span {
 
 /* classes */
 .App {
-  top: 20px;
   border-radius: 5px;
   overflow: hidden;
   position: relative;
@@ -49,27 +52,8 @@ h1 span {
   height: 306px;
   z-index: 0;
 }
-/*
-.C,
-.F {
-  background-image: url('./img/18.png');
-}
-.D,
-.G,
-.A {
-  background-image: url('./img/20.png');
-}
-.E,
-.B {
-  background-image: url('./img/22.png');
-}
-.Csharp,
-.Dsharp,
-.Fsharp,
-.Gsharp,
-.Asharp {
-  background-image: url('./img/19.png');
-}
+/* 
+     KEYS 
 */
 #key-0 {
   background-image: url('./img/1.png');

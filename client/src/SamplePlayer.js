@@ -22,10 +22,10 @@ class SamplePlayer {
         this.filter.connect(this.vca);
         this.vca.connect(this.ctx.destination);
         this.player.start();
-        this.vca.gain.linearRampToValueAtTime(this.volume, this.ctx.currentTime + 0.005);
+        this.vca.gain.setTargetAtTime(this.volume, this.ctx.currentTime, 0.01);
     }
     off() {
-        this.vca.gain.linearRampToValueAtTime(0., this.ctx.currentTime + 0.05);
+        this.vca.gain.setTargetAtTime(0., this.ctx.currentTime, 0.01);
         setTimeout(this.player.stop.bind(this.player), 150);
     }
     setVolume(val) {
