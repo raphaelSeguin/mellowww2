@@ -1,11 +1,11 @@
 import React from 'react';
 
 export default ({progress}) => {
-    console.log(progress);
+    const progressPercentage = progress * 100;
     return (
         <div className={`popin-load-bar ${progress === 1 ? 'invisible' : ''}`}>
-            <h1>LOADING...</h1>   
-            <div className={`w-${Math.floor(parseInt(progress, 10)*10)*10}` }></div>
+            <h1>LOADING...</h1>
+            <div style={{width: `${progressPercentage}%` }}></div>
         </div>
     )
 }

@@ -1,6 +1,11 @@
 import {samples} from './constants.js';
 import SamplePlayer from './SamplePlayer.js'
 
+/*
+maybe use Chris Wilson monkey patch...
+https://github.com/cwilso/AudioContext-MonkeyPatch/blob/gh-pages/AudioContextMonkeyPatch.js
+*/
+
 // helper
 const map = (val, min, max, tmin, tmax) => ((val - min) / (max - min)) * (tmax - tmin) + tmin;
 // 

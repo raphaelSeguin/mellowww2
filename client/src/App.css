@@ -203,16 +203,6 @@ h1 span {
 .popin-load-bar div {
   border-bottom: 10px dashed #fee4bd;
 }
-.popin-load-bar div.w-10 { width: 10% }
-.popin-load-bar div.w-20 { width: 20% }
-.popin-load-bar div.w-30 { width: 30% }
-.popin-load-bar div.w-40 { width: 40% }
-.popin-load-bar div.w-50 { width: 50% }
-.popin-load-bar div.w-60 { width: 60% }
-.popin-load-bar div.w-70 { width: 70% }
-.popin-load-bar div.w-80 { width: 80% }
-.popin-load-bar div.w-90 { width: 90% }
-.popin-load-bar div.w-100 { width: 100% }
 
 /* - - - - - - - - - - - - - - - */
 /* SHADE */
@@ -248,7 +238,7 @@ h1 span {
   height: 280px;
   top: 360px;
   overflow: hidden;
-  overflow-x: auto;
+  overflow-x: hidden;
 }
 .first-key {
   background-image: url('./img/18.png');

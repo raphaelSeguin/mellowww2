@@ -35,6 +35,7 @@ class App extends Component {
             prevKeysPressed: [],
             keysPressed: [],
             lastKeyPressed: null,
+            keyDown: false,
             selectParam: '',
             selectValue: 0,
             selectOrigin: [null, null],
@@ -66,32 +67,23 @@ class App extends Component {
             )
 
         if (type === 'mousedown' || type === 'touchstart') {
-            this.setState(
-                prevState => ({
-                    keysPressed: prevState.keysPressed.concat(keyNumber),
-                    lastKeyPressed: keyNumber
-                })
-            )
-            //
-            // JUSTE POUR VOIR  => => => utiliser this.state pour déclencher les notes 
-            // à partir de componentDidUpdate (... ou pas si c'est trop lent...)
-            //console.log('noteOn');
-            audio.noteOn(keyNumber);
-            //
-            //
+            this.setState({ lastKeyPressed: keyNumber });
+            pushKey(keyNumber);
         }
         else if (type === 'mouseleave' || type === 'mouseout' || type === 'mouseup' || type === 'touchend') {
             releaseKey(this.state.lastKeyPressed);
-            //
-            //
-            //console.log('noteOff');
-            audio.noteOff(keyNumber);
-            //
-            //
+        }
+        if ( type === 'mousedown') {
+            this.setState({ keyDown: true});
+        } else if ( type === 'mouseup') {
+            this.setState({ keyDown: false});
+        }
+        if (type === 'mouseover' && this.state.keyDown) {
+            pushKey(keyNumber);
+            this.setState({ lastKeyPressed: keyNumber})
         }
     }
     clickHandler(e) {
-        //e.persist();
         e.preventDefault();
         const target = e.target.id;
         const type = e.type;
@@ -100,6 +92,7 @@ class App extends Component {
         }
         switch (type) {
             case 'mousedown':
+            //case 'touchstart':
                 this.setState({
                     selectParam: target,
                     selectOrigin: [e.clientX, e.clientY],
@@ -107,11 +100,13 @@ class App extends Component {
                 });
                 break;
             case 'mouseup':
+            //case 'touchend':
                 this.setState({
                     selectParam: null
                 });
                 break;
             case 'mousemove':
+            //case 'touchmove':
                 if ( this.state.selectParam ) {
                     if( ['volume', 'tone', 'pitch'].includes(this.state.selectParam) ) {
                         const dist = this.state.selectOrigin[1] - e.clientY;
@@ -143,11 +138,11 @@ class App extends Component {
     }
     scrollHandler(e) {
         e.preventDefault();
-        console.log(e.type)
     }
+
     // lifecycle
     componentDidMount() {
-        audio.subscribeLoadingProgression( val => this.setState({loadingProgression: val}) );
+        audio.subscribeLoadingProgression( val => this.setState({ loadingProgression: val }) );
         audio.loadSamples();
         this.componentDidUpdate(null, this.state);
     }
@@ -157,6 +152,16 @@ class App extends Component {
         audio.setInstrument(prevState.instrument);
         audio.setVolume(prevState.volume);
         audio.setTone(prevState.tone);
+
+        // comparer this.state.keysPressed et prevState.keysPressed
+        // 
+        const newKeysPressed = this.state.keysPressed.reduce( (result, key) => prevState.keysPressed.includes(key) ? result : [...result, key], []);
+        
+        newKeysPressed.forEach( audio.noteOn );
+
+        const newKeysReleased = prevState.keysPressed.reduce( (result, key) => this.state.keysPressed.includes(key) ? result : [...result, key], []);
+
+        newKeysReleased.forEach( audio.noteOff );
     }
     render() {
         return (
@@ -168,8 +173,8 @@ class App extends Component {
                 onMouseLeave={this.clickHandler} 
                 onMouseOver={this.clickHandler} 
 
-                onClick={this.clickHandler} 
-                onDoubleClick={this.clickHandler} 
+                //onClick={this.clickHandler} 
+                //onDoubleClick={this.clickHandler} 
                 onMouseOut={this.clickHandler} 
 
                 onTouchCancel={this.clickHandler} 
@@ -186,7 +191,6 @@ class App extends Component {
                 <Keyboard
                     state={this.state}
                     handler={this.clickHandler}/>
-                
             </div>
         );
     }
