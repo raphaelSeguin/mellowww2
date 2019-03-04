@@ -22,6 +22,7 @@ h1 span {
   margin: auto;
   width: 1024px;
   height: 640px;
+  border: 2px solid #fee4bd67;
 }
 .label {
   color: black;
@@ -37,7 +38,6 @@ h1 span {
   position: absolute;
   display: inline-block;
   top: -26px;
-
 }
 .black {
   width: 41px;
@@ -73,21 +73,25 @@ h1 span {
 */
 #key-0 {
   background-image: url('./img/1.png');
+  width: 77px;
 }
 #key-1 {
   background-image: url('./img/2.png');
 }
 #key-2 {
   background-image: url('./img/3.png');
+  width: 78px;
 }
 #key-3 {
   background-image: url('./img/4.png');
 }
 #key-4 {
   background-image: url('./img/5.png');
+  width: 76px;
 }
 #key-5 {
   background-image: url('./img/6.png');
+  width: 77px
 }
 #key-6 {
   background-image: url('./img/7.png');

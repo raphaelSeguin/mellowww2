@@ -52,7 +52,7 @@ class App extends Component {
         })
     }
     handleKeyboard(keyNumber, type) {
-        console.log('key : ', keyNumber, '|| type : ', type);
+        //console.log('key : ', keyNumber, '|| type : ', type);
         const pushKey = key =>
             this.setState( 
                 prevState => ({
