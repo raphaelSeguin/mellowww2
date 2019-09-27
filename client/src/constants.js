@@ -219,3 +219,5 @@ export const samples = {
         'E5.mp3',
         'F5.mp3']
 }
+
+export const buildURL = window.location.hostname === 'localhost' ? '/' : '/mellowww/';

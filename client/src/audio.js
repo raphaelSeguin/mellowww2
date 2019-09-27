@@ -1,5 +1,5 @@
-import {samples} from './constants.js';
-import SamplePlayer from './SamplePlayer.js'
+import {samples, buildURL} from './constants.js';
+import SamplePlayer from './SamplePlayer.js';
 
 /*
 maybe use Chris Wilson monkey patch...
@@ -65,7 +65,7 @@ const audioFactory = () => {
         for (let instrument in samples) {
             sourceNodes[instrument] = [];
             for (let i = 0; i < samples[instrument].length; i++) {
-                const url = '/snd/' + instrument + '/' + encodeURIComponent(samples[instrument][i]);
+                const url = buildURL + 'snd/' + instrument + '/' + encodeURIComponent(samples[instrument][i]);
                 loadSample(url, instrument, i );
             }
         }

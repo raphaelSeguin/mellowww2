@@ -189,7 +189,8 @@ h1 span {
   color: #fee4bd;
 }
 .popin-load-bar div {
-  border-bottom: 10px dashed #fee4bd;
+  border: 1px solid #fee4bd;
+  border-bottom: 10px solid #fee4bd;
 }
 
 /* - - - - - - - - - - - - - - - */
